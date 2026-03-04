@@ -1,5 +1,5 @@
 <?php
-
+require __DIR__ . '/../../core/Database.php';
 class Cart {
     public int $id;
     public int $user_id;
@@ -9,8 +9,8 @@ class Cart {
 
     private PDO $db;
 
-    public function __construct(PDO $db) {
-        $this->db = $db;
+    public function __construct() {
+        $this->db = Database::getConnection();
     }
 
     public function getByUser(int $user_id): array {
