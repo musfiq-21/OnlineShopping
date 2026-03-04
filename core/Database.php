@@ -6,7 +6,6 @@ $dotenv->load();
 
 class Database
 {
-    
 
     private static $connection = null;
 
