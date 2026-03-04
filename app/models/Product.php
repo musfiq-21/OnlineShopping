@@ -1,5 +1,5 @@
 <?php
-
+require __DIR__ . '/../../core/Database.php';
 class Product {
     public int $id;
     public string $name;
@@ -11,8 +11,8 @@ class Product {
 
     private PDO $db;
 
-    public function __construct(PDO $db) {
-        $this->db = $db;
+    public function __construct() {
+        $this->db = Database::getConnection();
     }
 
     public function findById(int $id): ?Product {
