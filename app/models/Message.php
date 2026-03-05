@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../../core/Database.php';
+require_once __DIR__ . '/../../core/Database.php';
 class Message {
     public int $id;
     public int $sender_id;

@@ -1,5 +1,5 @@
 <?php
-require __DIR__ ."/../../core/Database.php";
+require_once __DIR__ ."/../../core/Database.php";
 class SellerController {
     private PDO $db;
     private Product $productModel;

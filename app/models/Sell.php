@@ -1,5 +1,5 @@
 <?php
-require "../../core/Database.php";
+require_once "../../core/Database.php";
 class Sell {
     public int $id;
     public int $product_id;

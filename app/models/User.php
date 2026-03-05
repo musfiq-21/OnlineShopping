@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../../core/Database.php';
+require_once __DIR__ . '/../../core/Database.php';
 require __DIR__ .'/../../core/utils.php';
 class User {
     public int $id;

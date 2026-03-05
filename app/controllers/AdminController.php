@@ -1,5 +1,5 @@
 <?php
-require __DIR__ ."/../../core/Database.php";
+require_once __DIR__ ."/../../core/Database.php";
 require __DIR__ . "/../models/User.php";
 require __DIR__ . "/../models/Product.php";
 require __DIR__ . "/../models/Sell.php";
@@ -37,8 +37,8 @@ class AdminController {
             header("Location: /admin/registerAdmin?error=exists");
             exit;
         }
-
-        $hashed = password_hash(password: $password);
+        
+        $hashed = password_hash($password, PASSWORD_DEFAULT);
         
         if ($this->userModel->create($name, 'admin', $hashed)) {
             header("Location: /admin/users?success=admin_created");

@@ -1,7 +1,7 @@
 <?php
-require 'vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
 $dotenv->load();
 
 class Database
@@ -11,11 +11,10 @@ class Database
 
     private function __construct()
     {
-        static $host = "localhost";
-        static $dbname = $_ENV['dbname'];
-        static $username = "root";
-        static $password = $_ENV['password'];
-
+        $host = "localhost";
+        $dbname = $_ENV['dbname'];
+        $username = "root";
+        $password = $_ENV['password'];
 
         if (self::$connection === null) {
             try {
