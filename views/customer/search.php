@@ -23,7 +23,7 @@
                     <?php endif; ?>
                     <div class="card-body">
                         <h5 class="card-title"><?= htmlspecialchars($product->name) ?></h5>
-                        <p class="card-text text-success fw-bold">$<?= number_format($product->price, 2) ?></p>
+                        <p class="card-text text-success fw-bold">BDT <?= number_format($product->price, 2) ?></p>
                         <p class="card-text"><small class="text-muted">Stock: <?= $product->quantity ?></small></p>
                         <div class="d-flex gap-2 mb-3">
                             <a href="/mini_OnShop/customer/productDetail?id=<?= $product->id ?>" class="btn btn-info btn-sm flex-grow-1">Details</a>

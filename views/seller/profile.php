@@ -40,6 +40,29 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Sales Stats -->
+            <div class="card mt-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Sales Overview</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <h3 class="text-success">BDT <?= number_format($totalSales, 2) ?></h3>
+                            <p class="text-muted mb-0">Total Sales</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h3 class="text-primary"><?= $totalOrders ?></h3>
+                            <p class="text-muted mb-0">Orders</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h3 class="text-info"><?= $totalProducts ?></h3>
+                            <p class="text-muted mb-0">Products</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="col-md-4">

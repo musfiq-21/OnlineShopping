@@ -21,7 +21,7 @@
                     <td><?= htmlspecialchars($sale['product_name']) ?></td>
                     <td><?= htmlspecialchars($sale['buyer_name']) ?></td>
                     <td><?= $sale['Quantity'] ?></td>
-                    <td>$<?= number_format($sale['Total_price'], 2) ?></td>
+                    <td>BDT <?= number_format($sale['Total_price'], 2) ?></td>
                     <td><?= $sale['Sold_at'] ?></td>
                 </tr>
             <?php endforeach; ?>

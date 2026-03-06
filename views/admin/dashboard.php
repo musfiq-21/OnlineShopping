@@ -50,7 +50,7 @@
                 <tr>
                     <td><?= htmlspecialchars($order['product_name']) ?></td>
                     <td><?= htmlspecialchars($order['buyer_name']) ?></td>
-                    <td>$<?= number_format($order['Total_price'], 2) ?></td>
+                    <td>BDT <?= number_format($order['Total_price'], 2) ?></td>
                     <td><?= $order['Sold_at'] ?></td>
                 </tr>
             <?php endforeach; ?>

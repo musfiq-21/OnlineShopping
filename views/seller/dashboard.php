@@ -42,7 +42,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h6><?= htmlspecialchars($product->name) ?></h6>
-                        <p class="mb-0">$<?= number_format($product->price, 2) ?> | Stock: <?= $product->quantity ?></p>
+                        <p class="mb-0">BDT <?= number_format($product->price, 2) ?> | Stock: <?= $product->quantity ?></p>
                     </div>
                 </div>
             </div>

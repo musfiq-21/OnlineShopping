@@ -24,9 +24,9 @@
             <?php foreach ($items as $item): ?>
                 <tr>
                     <td><?= htmlspecialchars($item['product_name']) ?></td>
-                    <td>$<?= number_format($item['unit_price'], 2) ?></td>
+                    <td>BDT <?= number_format($item['unit_price'], 2) ?></td>
                     <td><?= $item['Quantity'] ?></td>
-                    <td>$<?= number_format($item['unit_price'] * $item['Quantity'], 2) ?></td>
+                    <td>BDT <?= number_format($item['unit_price'] * $item['Quantity'], 2) ?></td>
                     <td>
                         <form action="/mini_OnShop/customer/removeFromCart" method="POST" class="d-inline">
                             <input type="hidden" name="product_id" value="<?= $item['Product'] ?>">
@@ -39,7 +39,7 @@
         <tfoot>
             <tr>
                 <th colspan="3" class="text-end">Total:</th>
-                <th>$<?= number_format($total, 2) ?></th>
+                <th>BDT <?= number_format($total, 2) ?></th>
                 <th></th>
             </tr>
         </tfoot>

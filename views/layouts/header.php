@@ -39,6 +39,7 @@
                     <a class="nav-link" href="/mini_OnShop/seller/products">Products</a>
                     <a class="nav-link" href="/mini_OnShop/seller/addProduct">Add Product</a>
                     <a class="nav-link" href="/mini_OnShop/seller/sales">Sales</a>
+                    <a class="nav-link" href="/mini_OnShop/seller/reviews">Reviews</a>
                     <a class="nav-link" href="/mini_OnShop/seller/profile">Profile</a>
                 <?php elseif ($_SESSION['role'] === 'admin'): ?>
                     <a class="nav-link" href="/mini_OnShop/admin/dashboard">Dashboard</a>

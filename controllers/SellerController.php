@@ -2,16 +2,19 @@
 require_once __DIR__ . '/../models/Product.php';
 require_once __DIR__ . '/../models/Order.php';
 require_once __DIR__ . '/../models/User.php';
+require_once __DIR__ . '/../models/Comment.php';
 
 class SellerController {
     private Product $product;
     private Order $order;
     private User $user;
+    private Comment $comment;
 
     public function __construct() {
         $this->product = new Product();
         $this->order = new Order();
         $this->user = new User();
+        $this->comment = new Comment();
     }
 
     public function dashboard() {
@@ -89,6 +92,11 @@ class SellerController {
         require __DIR__ . '/../views/seller/sales.php';
     }
 
+    public function reviews() {
+        $comments = $this->comment->getBySeller($_SESSION['user_id']);
+        require __DIR__ . '/../views/seller/reviews.php';
+    }
+
     private function isOwner(int $product_id): bool {
         $product = $this->product->findById($product_id);
         return $product && $product->seller_id === $_SESSION['user_id'];
@@ -96,6 +104,11 @@ class SellerController {
 
     public function profile() {
         $user = $this->user->findById($_SESSION['user_id']);
+        $products = $this->product->findBySeller($_SESSION['user_id']);
+        $sales = $this->order->getBySeller($_SESSION['user_id']);
+        $totalSales = array_sum(array_column($sales, 'Total_price'));
+        $totalOrders = count($sales);
+        $totalProducts = count($products);
         require __DIR__ . '/../views/seller/profile.php';
     }
 

@@ -30,7 +30,7 @@
                     <h3 class="card-title"><?= htmlspecialchars($product->name) ?></h3>
                     
                     <p class="card-text">
-                        <strong>Price:</strong> <span class="text-success fs-5">$<?= number_format($product->price, 2) ?></span>
+                        <strong>Price:</strong> <span class="text-success fs-5">BDT <?= number_format($product->price, 2) ?></span>
                     </p>
                     
                     <p class="card-text">

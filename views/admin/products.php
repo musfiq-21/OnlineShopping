@@ -25,7 +25,7 @@
                 <tr>
                     <td><?= $product->id ?></td>
                     <td><?= htmlspecialchars($product->name) ?></td>
-                    <td>$<?= number_format($product->price, 2) ?></td>
+                    <td>BDT <?= number_format($product->price, 2) ?></td>
                     <td><?= $product->quantity ?></td>
                     <td><?= $product->seller_id ?></td>
                     <td>
