@@ -6,6 +6,10 @@
     <div class="alert alert-success">Product added successfully!</div>
 <?php endif; ?>
 
+<?php if (isset($_GET['success']) && $_GET['success'] === 'updated'): ?>
+    <div class="alert alert-success">Product updated successfully!</div>
+<?php endif; ?>
+
 <a href="/mini_OnShop/seller/addProduct" class="btn btn-success mb-3">Add New Product</a>
 
 <?php if (empty($products)): ?>
@@ -40,6 +44,7 @@
                         </form>
                     </td>
                     <td>
+                        <a href="/mini_OnShop/seller/editProduct?id=<?= $product->id ?>" class="btn btn-sm btn-warning me-2">Edit</a>
                         <form action="/mini_OnShop/seller/deleteProduct" method="POST" class="d-inline" onsubmit="return confirm('Delete?')">
                             <input type="hidden" name="id" value="<?= $product->id ?>">
                             <button type="submit" class="btn btn-sm btn-danger">Delete</button>

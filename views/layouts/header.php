@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop</title>
+    <title>mini_OnShop</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/mini_OnShop/public/style.css" rel="stylesheet">
     <style>
@@ -25,7 +25,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <?php if (isset($_SESSION['user_id'])): ?>
-            <a class="navbar-brand" href="/mini_OnShop/">Shop</a>
+            <a class="navbar-brand" href="/mini_OnShop/">mini_OnShop</a>
         <?php endif; ?>
         <?php if (isset($_SESSION['user_id'])): ?>
             <div class="navbar-nav me-auto">
@@ -33,16 +33,19 @@
                     <a class="nav-link" href="/mini_OnShop/customer/home">Products</a>
                     <a class="nav-link" href="/mini_OnShop/customer/cart">Cart</a>
                     <a class="nav-link" href="/mini_OnShop/customer/orders">Orders</a>
+                    <a class="nav-link" href="/mini_OnShop/customer/profile">Profile</a>
                 <?php elseif ($_SESSION['role'] === 'seller'): ?>
                     <a class="nav-link" href="/mini_OnShop/seller/dashboard">Dashboard</a>
                     <a class="nav-link" href="/mini_OnShop/seller/products">Products</a>
                     <a class="nav-link" href="/mini_OnShop/seller/addProduct">Add Product</a>
                     <a class="nav-link" href="/mini_OnShop/seller/sales">Sales</a>
+                    <a class="nav-link" href="/mini_OnShop/seller/profile">Profile</a>
                 <?php elseif ($_SESSION['role'] === 'admin'): ?>
                     <a class="nav-link" href="/mini_OnShop/admin/dashboard">Dashboard</a>
                     <a class="nav-link" href="/mini_OnShop/admin/users">Users</a>
                     <a class="nav-link" href="/mini_OnShop/admin/products">Products</a>
                     <a class="nav-link" href="/mini_OnShop/admin/orders">Orders</a>
+                    <a class="nav-link" href="/mini_OnShop/admin/profile">Profile</a>
                 <?php endif; ?>
             </div>
             <span class="navbar-text text-white me-3">

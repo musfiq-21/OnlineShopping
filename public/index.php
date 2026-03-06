@@ -30,9 +30,9 @@ if (class_exists($controllerName)) {
         $controller->$methodName();
     } else {
         http_response_code(404);
-        echo "Method not found: $methodName";
+        echo "Page not found.";
     }
 } else {
     http_response_code(404);
-    echo "Controller not found: $controllerName";
+    echo "Page not found.";
 }

@@ -71,4 +71,32 @@ class User {
             'id' => $id
         ]);
     }
+
+    public function updateName(int $id, string $new_name): bool {
+        // Check if new name is already taken
+        $stmt = $this->db->prepare("SELECT COUNT(*) FROM Users WHERE Name = :name AND ID != :id");
+        $stmt->execute(['name' => $new_name, 'id' => $id]);
+        if ((int)$stmt->fetchColumn() > 0) {
+            return false; // Name already exists
+        }
+
+        $stmt = $this->db->prepare("UPDATE Users SET Name = :name WHERE ID = :id");
+        return $stmt->execute(['name' => $new_name, 'id' => $id]);
+    }
+
+    public function verifyPassword(int $id, string $password): bool {
+        $stmt = $this->db->prepare("SELECT Hashed_password FROM Users WHERE ID = :id");
+        $stmt->execute(['id' => $id]);
+        $storedPassword = $stmt->fetchColumn();
+
+        if (!$storedPassword) {
+            return false;
+        }
+
+        if (str_starts_with($storedPassword, '$2y$') || str_starts_with($storedPassword, '$2a$')) {
+            return password_verify($password, $storedPassword);
+        } else {
+            return $password === $storedPassword;
+        }
+    }
 }

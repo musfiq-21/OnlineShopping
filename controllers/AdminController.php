@@ -73,4 +73,76 @@ class AdminController {
         $orders = $this->order->getAll();
         require __DIR__ . '/../views/admin/orders.php';
     }
+
+    public function profile() {
+        $user = $this->user->findById($_SESSION['user_id']);
+        require __DIR__ . '/../views/admin/profile.php';
+    }
+
+    public function editProfile() {
+        $user = $this->user->findById($_SESSION['user_id']);
+        require __DIR__ . '/../views/admin/edit-profile.php';
+    }
+
+    public function handleEditProfile() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header("Location: /mini_OnShop/admin/profile");
+            exit;
+        }
+
+        $new_name = $_POST['name'] ?? '';
+
+        if (empty(trim($new_name))) {
+            header("Location: /mini_OnShop/admin/editProfile?error=empty");
+            exit;
+        }
+
+        if ($this->user->updateName($_SESSION['user_id'], $new_name)) {
+            $_SESSION['name'] = $new_name;
+            header("Location: /mini_OnShop/admin/profile?success=updated");
+            exit;
+        }
+
+        header("Location: /mini_OnShop/admin/editProfile?error=exists");
+        exit;
+    }
+
+    public function changePassword() {
+        require __DIR__ . '/../views/admin/change-password.php';
+    }
+
+    public function handleChangePassword() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header("Location: /mini_OnShop/admin/profile");
+            exit;
+        }
+
+        $current_password = $_POST['current_password'] ?? '';
+        $new_password = $_POST['new_password'] ?? '';
+        $confirm_password = $_POST['confirm_password'] ?? '';
+
+        if (empty($current_password) || empty($new_password) || empty($confirm_password)) {
+            header("Location: /mini_OnShop/admin/changePassword?error=empty");
+            exit;
+        }
+
+        if ($new_password !== $confirm_password) {
+            header("Location: /mini_OnShop/admin/changePassword?error=mismatch");
+            exit;
+        }
+
+        if (strlen($new_password) < 5) {
+            header("Location: /mini_OnShop/admin/changePassword?error=weak");
+            exit;
+        }
+
+        if (!$this->user->verifyPassword($_SESSION['user_id'], $current_password)) {
+            header("Location: /mini_OnShop/admin/changePassword?error=incorrect");
+            exit;
+        }
+
+        $this->user->updatePassword($_SESSION['user_id'], $new_password);
+        header("Location: /mini_OnShop/admin/profile?success=password");
+        exit;
+    }
 }

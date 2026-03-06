@@ -126,5 +126,77 @@ class CustomerController {
         header("Location: /mini_OnShop/customer/productDetail?id=$product_id&success=1");
         exit;
     }
+
+    public function profile() {
+        $user = $this->user->findById($_SESSION['user_id']);
+        require __DIR__ . '/../views/customer/profile.php';
+    }
+
+    public function editProfile() {
+        $user = $this->user->findById($_SESSION['user_id']);
+        require __DIR__ . '/../views/customer/edit-profile.php';
+    }
+
+    public function handleEditProfile() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header("Location: /mini_OnShop/customer/profile");
+            exit;
+        }
+
+        $new_name = $_POST['name'] ?? '';
+
+        if (empty(trim($new_name))) {
+            header("Location: /mini_OnShop/customer/editProfile?error=empty");
+            exit;
+        }
+
+        if ($this->user->updateName($_SESSION['user_id'], $new_name)) {
+            $_SESSION['name'] = $new_name;
+            header("Location: /mini_OnShop/customer/profile?success=updated");
+            exit;
+        }
+
+        header("Location: /mini_OnShop/customer/editProfile?error=exists");
+        exit;
+    }
+
+    public function changePassword() {
+        require __DIR__ . '/../views/customer/change-password.php';
+    }
+
+    public function handleChangePassword() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header("Location: /mini_OnShop/customer/profile");
+            exit;
+        }
+
+        $current_password = $_POST['current_password'] ?? '';
+        $new_password = $_POST['new_password'] ?? '';
+        $confirm_password = $_POST['confirm_password'] ?? '';
+
+        if (empty($current_password) || empty($new_password) || empty($confirm_password)) {
+            header("Location: /mini_OnShop/customer/changePassword?error=empty");
+            exit;
+        }
+
+        if ($new_password !== $confirm_password) {
+            header("Location: /mini_OnShop/customer/changePassword?error=mismatch");
+            exit;
+        }
+
+        if (strlen($new_password) < 5) {
+            header("Location: /mini_OnShop/customer/changePassword?error=weak");
+            exit;
+        }
+
+        if (!$this->user->verifyPassword($_SESSION['user_id'], $current_password)) {
+            header("Location: /mini_OnShop/customer/changePassword?error=incorrect");
+            exit;
+        }
+
+        $this->user->updatePassword($_SESSION['user_id'], $new_password);
+        header("Location: /mini_OnShop/customer/profile?success=password");
+        exit;
+    }
 }
 

@@ -93,4 +93,31 @@ class Product {
         $stmt = $this->db->prepare("DELETE FROM Products WHERE ID = :id");
         return $stmt->execute(['id' => $id]);
     }
+
+    public function updateDetails(int $id, string $name, float $price, ?string $image = null): bool {
+        if ($image) {
+            $stmt = $this->db->prepare("
+                UPDATE Products 
+                SET Name = :name, Price = :price, Stock_image = :image 
+                WHERE ID = :id
+            ");
+            return $stmt->execute([
+                'name' => $name,
+                'price' => $price,
+                'image' => $image,
+                'id' => $id
+            ]);
+        } else {
+            $stmt = $this->db->prepare("
+                UPDATE Products 
+                SET Name = :name, Price = :price 
+                WHERE ID = :id
+            ");
+            return $stmt->execute([
+                'name' => $name,
+                'price' => $price,
+                'id' => $id
+            ]);
+        }
+    }
 }
