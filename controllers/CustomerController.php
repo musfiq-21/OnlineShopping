@@ -4,6 +4,7 @@ require_once __DIR__ . '/../models/Cart.php';
 require_once __DIR__ . '/../models/Order.php';
 require_once __DIR__ . '/../models/Comment.php';
 require_once __DIR__ . '/../models/User.php';
+require_once __DIR__ . '/../models/Message.php';
 
 class CustomerController {
     private Product $product;
@@ -197,6 +198,62 @@ class CustomerController {
         $this->user->updatePassword($_SESSION['user_id'], $new_password);
         header("Location: /mini_OnShop/customer/profile?success=password");
         exit;
+    }
+
+    public function inbox() {
+        $message = new Message();
+        $conversations = $message->getConversations($_SESSION['user_id']);
+        $unreadTotal = $message->getUnreadCount($_SESSION['user_id']);
+        $role = 'customer';
+        require __DIR__ . '/../views/shared/inbox.php';
+    }
+
+    public function conversation() {
+        $other_id = (int)($_GET['with'] ?? 0);
+        if ($other_id <= 0) {
+            header("Location: /mini_OnShop/customer/inbox");
+            exit;
+        }
+
+        $otherUser = $this->user->findById($other_id);
+        if (!$otherUser) {
+            header("Location: /mini_OnShop/customer/inbox");
+            exit;
+        }
+
+        $message = new Message();
+        $message->markAsRead($other_id, $_SESSION['user_id']);
+        $messages = $message->getThread($_SESSION['user_id'], $other_id);
+        $role = 'customer';
+        require __DIR__ . '/../views/shared/conversation.php';
+    }
+
+    public function sendMessage() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header("Location: /mini_OnShop/customer/inbox");
+            exit;
+        }
+
+        $receiver_id = (int)($_POST['receiver_id'] ?? 0);
+        $content = $_POST['content'] ?? '';
+
+        if ($receiver_id <= 0 || empty(trim($content))) {
+            header("Location: /mini_OnShop/customer/inbox");
+            exit;
+        }
+
+        $message = new Message();
+        $message->send($_SESSION['user_id'], $receiver_id, $content);
+        header("Location: /mini_OnShop/customer/conversation?with=$receiver_id");
+        exit;
+    }
+
+    public function newMessage() {
+        $users = $this->user->getAll();
+        // Filter out current user
+        $users = array_filter($users, fn($u) => $u->id !== $_SESSION['user_id']);
+        $role = 'customer';
+        require __DIR__ . '/../views/shared/new-message.php';
     }
 }
 

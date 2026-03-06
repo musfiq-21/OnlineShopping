@@ -33,6 +33,7 @@
                     <a class="nav-link" href="/mini_OnShop/customer/home">Products</a>
                     <a class="nav-link" href="/mini_OnShop/customer/cart">Cart</a>
                     <a class="nav-link" href="/mini_OnShop/customer/orders">Orders</a>
+                    <a class="nav-link" href="/mini_OnShop/customer/inbox">Chatbox</a>
                     <a class="nav-link" href="/mini_OnShop/customer/profile">Profile</a>
                 <?php elseif ($_SESSION['role'] === 'seller'): ?>
                     <a class="nav-link" href="/mini_OnShop/seller/dashboard">Dashboard</a>
@@ -40,12 +41,14 @@
                     <a class="nav-link" href="/mini_OnShop/seller/addProduct">Add Product</a>
                     <a class="nav-link" href="/mini_OnShop/seller/sales">Sales</a>
                     <a class="nav-link" href="/mini_OnShop/seller/reviews">Reviews</a>
+                    <a class="nav-link" href="/mini_OnShop/seller/inbox">Chatbox</a>
                     <a class="nav-link" href="/mini_OnShop/seller/profile">Profile</a>
                 <?php elseif ($_SESSION['role'] === 'admin'): ?>
                     <a class="nav-link" href="/mini_OnShop/admin/dashboard">Dashboard</a>
                     <a class="nav-link" href="/mini_OnShop/admin/users">Users</a>
                     <a class="nav-link" href="/mini_OnShop/admin/products">Products</a>
                     <a class="nav-link" href="/mini_OnShop/admin/orders">Orders</a>
+                    <a class="nav-link" href="/mini_OnShop/admin/inbox">Chatbox</a>
                     <a class="nav-link" href="/mini_OnShop/admin/profile">Profile</a>
                 <?php endif; ?>
             </div>
