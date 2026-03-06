@@ -25,13 +25,13 @@
                         <h5 class="card-title"><?= htmlspecialchars($product->name) ?></h5>
                         <p class="card-text text-success fw-bold">$<?= number_format($product->price, 2) ?></p>
                         <p class="card-text"><small class="text-muted">Stock: <?= $product->quantity ?></small></p>
-                        <form action="/mini_OnShop/customer/addToCart" method="POST">
-                            <input type="hidden" name="product_id" value="<?= $product->id ?>">
-                            <div class="input-group">
-                                <input type="number" name="quantity" value="1" min="1" max="<?= $product->quantity ?>" class="form-control">
-                                <button type="submit" class="btn btn-primary" <?= $product->quantity < 1 ? 'disabled' : '' ?>>Add</button>
-                            </div>
-                        </form>
+                        <div class="d-flex gap-2 mb-3">
+                            <a href="/mini_OnShop/customer/productDetail?id=<?= $product->id ?>" class="btn btn-info btn-sm flex-grow-1">Details</a>
+                            <form action="/mini_OnShop/customer/addToCart" method="POST" class="flex-grow-1">
+                                <input type="hidden" name="product_id" value="<?= $product->id ?>">
+                                <button type="submit" class="btn btn-primary w-100" <?= $product->quantity < 1 ? 'disabled' : '' ?>>Add</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
