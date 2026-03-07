@@ -1,35 +1,49 @@
 <?php require __DIR__ . '/../layouts/header.php'; ?>
 
-<h2>Products</h2>
+<div class="page-header">
+    <h2><i class="bi bi-grid"></i> Products</h2>
+</div>
 
-<form action="/mini_OnShop/customer/search" method="GET" class="mb-4">
-    <div class="input-group">
-        <input type="text" name="q" class="form-control" placeholder="Search products...">
-        <button class="btn btn-primary" type="submit">Search</button>
+<div class="card mb-4">
+    <div class="card-body p-3">
+        <form action="/mini_OnShop/customer/search" method="GET">
+            <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <input type="text" name="q" class="form-control" placeholder="Search products...">
+                <button class="btn btn-gradient" type="submit">Search</button>
+            </div>
+        </form>
     </div>
-</form>
+</div>
 
 <div class="row">
     <?php if (empty($products)): ?>
-        <p class="text-muted">No products available.</p>
+        <div class="col-12">
+            <div class="card">
+                <div class="empty-state">
+                    <i class="bi bi-box-seam d-block"></i>
+                    <p>No products available.</p>
+                </div>
+            </div>
+        </div>
     <?php else: ?>
         <?php foreach ($products as $product): ?>
             <div class="col-md-4 mb-4">
-                <div class="card h-100">
+                <div class="card product-card h-100">
                     <?php if ($product->image): ?>
                         <img src="/mini_OnShop/public/<?= htmlspecialchars($product->image) ?>" class="card-img-top" style="height: 200px; object-fit: cover;">
                     <?php else: ?>
-                        <div class="card-img-top bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 200px;">No Image</div>
+                        <div class="no-image"><i class="bi bi-image me-2"></i>No Image</div>
                     <?php endif; ?>
-                    <div class="card-body">
-                        <h5 class="card-title"><?= htmlspecialchars($product->name) ?></h5>
-                        <p class="card-text text-success fw-bold">BDT <?= number_format($product->price, 2) ?></p>
-                        <p class="card-text"><small class="text-muted">Stock: <?= $product->quantity ?></small></p>
-                        <div class="d-flex gap-2 mb-3">
-                            <a href="/mini_OnShop/customer/productDetail?id=<?= $product->id ?>" class="btn btn-info btn-sm flex-grow-1">Details</a>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title fw-bold"><?= htmlspecialchars($product->name) ?></h5>
+                        <p class="price mb-1">BDT <?= number_format($product->price, 2) ?></p>
+                        <p class="text-muted small mb-3"><i class="bi bi-box"></i> Stock: <?= $product->quantity ?></p>
+                        <div class="d-flex gap-2 mt-auto">
+                            <a href="/mini_OnShop/customer/productDetail?id=<?= $product->id ?>" class="btn btn-outline-primary btn-sm flex-grow-1"><i class="bi bi-eye"></i> Details</a>
                             <form action="/mini_OnShop/customer/addToCart" method="POST" class="flex-grow-1">
                                 <input type="hidden" name="product_id" value="<?= $product->id ?>">
-                                <button type="submit" class="btn btn-primary w-100" <?= $product->quantity < 1 ? 'disabled' : '' ?>>Add</button>
+                                <button type="submit" class="btn btn-gradient btn-sm w-100" <?= $product->quantity < 1 ? 'disabled' : '' ?>><i class="bi bi-cart-plus"></i> Add</button>
                             </form>
                         </div>
                     </div>

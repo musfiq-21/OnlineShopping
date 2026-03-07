@@ -1,81 +1,63 @@
 <?php require __DIR__ . '/../layouts/header.php'; ?>
 
-<div class="container mt-4">
-    <?php if (isset($_GET['success']) && $_GET['success'] === 'updated'): ?>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            Profile updated successfully!
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    <?php endif; ?>
+<div class="page-header">
+    <h2><i class="bi bi-person-circle"></i> Seller Profile</h2>
+</div>
 
-    <?php if (isset($_GET['success']) && $_GET['success'] === 'password'): ?>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            Password changed successfully!
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    <?php endif; ?>
+<?php if (isset($_GET['success']) && $_GET['success'] === 'updated'): ?>
+    <div class="alert alert-success"><i class="bi bi-check-circle"></i> Profile updated successfully!</div>
+<?php endif; ?>
+<?php if (isset($_GET['success']) && $_GET['success'] === 'password'): ?>
+    <div class="alert alert-success"><i class="bi bi-check-circle"></i> Password changed successfully!</div>
+<?php endif; ?>
 
-    <div class="row">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">My Profile</h4>
+<div class="row">
+    <div class="col-md-8 mb-4">
+        <div class="card mb-4">
+            <div class="card-body text-center py-4">
+                <div class="profile-avatar">
+                    <i class="bi bi-shop"></i>
                 </div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <label class="form-label"><strong>Shop Name</strong></label>
-                        <p class="form-control-plaintext"><?= htmlspecialchars($user->name) ?></p>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label"><strong>Role</strong></label>
-                        <p class="form-control-plaintext">
-                            <span class="badge bg-primary">Seller</span>
-                        </p>
-                    </div>
-
-                    <div class="d-flex gap-2">
-                        <a href="/mini_OnShop/seller/editProfile" class="btn btn-warning">Edit Profile</a>
-                        <a href="/mini_OnShop/seller/changePassword" class="btn btn-danger">Change Password</a>
-                    </div>
+                <h4 class="fw-bold"><?= htmlspecialchars($user->name) ?></h4>
+                <span class="badge" style="background: var(--accent); color: #fff;">Seller</span>
+                <div class="d-flex justify-content-center gap-2 mt-3">
+                    <a href="/mini_OnShop/seller/editProfile" class="btn btn-gradient"><i class="bi bi-pencil"></i> Edit Profile</a>
+                    <a href="/mini_OnShop/seller/changePassword" class="btn btn-outline-danger"><i class="bi bi-shield-lock"></i> Change Password</a>
                 </div>
             </div>
-
-            <!-- Sales Stats -->
-            <div class="card mt-4">
-                <div class="card-header bg-success text-white">
-                    <h5 class="mb-0">Sales Overview</h5>
-                </div>
-                <div class="card-body">
-                    <div class="row text-center">
-                        <div class="col-md-4">
-                            <h3 class="text-success">BDT <?= number_format($totalSales, 2) ?></h3>
-                            <p class="text-muted mb-0">Total Sales</p>
-                        </div>
-                        <div class="col-md-4">
-                            <h3 class="text-primary"><?= $totalOrders ?></h3>
-                            <p class="text-muted mb-0">Orders</p>
-                        </div>
-                        <div class="col-md-4">
-                            <h3 class="text-info"><?= $totalProducts ?></h3>
-                            <p class="text-muted mb-0">Products</p>
-                        </div>
+        </div>
+        <div class="card">
+            <div class="card-header gradient-header">
+                <h5 class="mb-0"><i class="bi bi-graph-up me-2"></i>Sales Overview</h5>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-md-4">
+                        <div class="stat-value" style="color: #10b981;">BDT <?= number_format($totalSales, 2) ?></div>
+                        <div class="stat-label">Total Revenue</div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-value" style="color: var(--accent);"><?= $totalOrders ?></div>
+                        <div class="stat-label">Orders</div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-value" style="color: #f59e0b;"><?= $totalProducts ?></div>
+                        <div class="stat-label">Products</div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header bg-secondary text-white">
-                    <h5 class="mb-0">Quick Links</h5>
-                </div>
-                <div class="card-body">
-                    <a href="/mini_OnShop/seller/dashboard" class="btn btn-outline-primary w-100 mb-2">Dashboard</a>
-                    <a href="/mini_OnShop/seller/products" class="btn btn-outline-primary w-100 mb-2">My Products</a>
-                    <a href="/mini_OnShop/seller/addProduct" class="btn btn-outline-success w-100 mb-2">Add Product</a>
-                    <a href="/mini_OnShop/seller/sales" class="btn btn-outline-primary w-100">Sales</a>
-                </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header gradient-header">
+                <h5 class="mb-0"><i class="bi bi-lightning me-2"></i>Quick Links</h5>
+            </div>
+            <div class="card-body">
+                <a href="/mini_OnShop/seller/dashboard" class="quick-link"><i class="bi bi-speedometer2"></i> Dashboard</a>
+                <a href="/mini_OnShop/seller/products" class="quick-link"><i class="bi bi-box-seam"></i> My Products</a>
+                <a href="/mini_OnShop/seller/addProduct" class="quick-link"><i class="bi bi-plus-circle"></i> Add Product</a>
+                <a href="/mini_OnShop/seller/sales" class="quick-link"><i class="bi bi-graph-up"></i> Sales</a>
             </div>
         </div>
     </div>

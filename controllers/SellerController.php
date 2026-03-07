@@ -256,7 +256,7 @@ class SellerController {
         }
 
         $otherUser = $this->user->findById($other_id);
-        if (!$otherUser) {
+        if (!$otherUser || !in_array($otherUser->role, ['customer', 'admin'])) {
             header("Location: /mini_OnShop/seller/inbox");
             exit;
         }
@@ -282,6 +282,13 @@ class SellerController {
             exit;
         }
 
+        // Sellers can only message customers and admins
+        $receiver = $this->user->findById($receiver_id);
+        if (!$receiver || !in_array($receiver->role, ['customer', 'admin'])) {
+            header("Location: /mini_OnShop/seller/inbox");
+            exit;
+        }
+
         $message = new Message();
         $message->send($_SESSION['user_id'], $receiver_id, $content);
         header("Location: /mini_OnShop/seller/conversation?with=$receiver_id");
@@ -290,7 +297,8 @@ class SellerController {
 
     public function newMessage() {
         $users = $this->user->getAll();
-        $users = array_filter($users, fn($u) => $u->id !== $_SESSION['user_id']);
+        // Sellers can only chat with customers and admins
+        $users = array_filter($users, fn($u) => $u->id !== $_SESSION['user_id'] && in_array($u->role, ['customer', 'admin']));
         $role = 'seller';
         require __DIR__ . '/../views/shared/new-message.php';
     }
